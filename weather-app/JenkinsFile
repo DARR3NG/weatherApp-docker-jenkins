@@ -1,0 +1,71 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+    
+    stages {
+        stage('Git Clone') {
+            steps {
+                script {
+                      checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'https://github.com/DARR3NG/weatherApp-docker-jenkins.git']]])
+    
+                }
+            }
+        }
+
+        stage('Build Discovery-Service') {
+            steps {
+                dir('weather-app/discovery-service'){
+                
+                bat 'mvn clean install'
+                }
+            }
+        }
+
+        stage('Build gateway-service') {
+            steps {
+                dir('weather-app/gateway-service'){
+
+                bat 'mvn clean install'
+                }
+            }
+        }
+
+
+        stage('Build geocoder-service') {
+            steps {
+                dir('weather-app/geocoder-service'){
+
+                bat 'mvn clean install'
+                }
+            }
+        }
+        stage('Build weather-service') {
+            steps {
+                dir('weather-app/weather-service'){
+
+                bat 'mvn clean install'
+                }
+            }
+        }
+        stage('Build weather-forecast-service') {
+            steps {
+                dir('weather-app/weather-forecast'){
+
+                bat 'mvn clean install'
+                }
+            }
+        }
+
+
+        stage('Compose and Build Docker Images') {
+            steps {
+                dir('weather-app'){
+
+                bat 'docker compose up --build -d'
+                }
+            }
+        }
+    }
+}
