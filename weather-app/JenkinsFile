@@ -60,7 +60,7 @@ pipeline {
 
         stage('Build Weather ui') {
                     steps {
-                        sh 'npm install'
+                        bat 'npm install'
                     }
         }
 
