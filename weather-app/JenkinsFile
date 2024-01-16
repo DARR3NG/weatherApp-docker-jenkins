@@ -58,6 +58,12 @@ pipeline {
             }
         }
 
+        stage('Build Weather ui') {
+                    steps {
+                        sh 'npm install'
+                    }
+        }
+
 
         stage('Compose and Build Docker Images') {
             steps {
@@ -67,5 +73,7 @@ pipeline {
                 }
             }
         }
+
+
     }
 }
