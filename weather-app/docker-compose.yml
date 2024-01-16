@@ -74,6 +74,21 @@ services:
     environment:
         DISCOVERY_SERVICE_URL: http://discovery-service:8761/eureka/
 
+  weather-ui:
+    container_name: weather-ui
+    build: ./weather_app_front
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      gateway-service:
+        condition: service_started
+
+
+
 
 
 
