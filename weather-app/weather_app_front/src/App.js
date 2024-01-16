@@ -33,7 +33,7 @@ function App() {
       let res = await fetch(`${process.env.REACT_APP_URL + how_to_search}`)
       let data = await res.json()
       if (data.cod != 200) {
-        setNoData('Location Not Found')
+        setNoData('Location Not Found !')
         return
       }
       setWeatherData(data)
