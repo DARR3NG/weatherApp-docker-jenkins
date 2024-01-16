@@ -60,8 +60,10 @@ pipeline {
 
         stage('Build Weather ui') {
                     steps {
+                    dir('weather-app/weather_app_front'){
                         bat 'npm install'
-                    }
+                }
+            }
         }
 
 
