@@ -21,16 +21,15 @@ stage('Build Discovery-Service') {
 
             withSonarQubeEnv('sonarserver') {
                 bat "mvn clean verify sonar:sonar -Dsonar.projectKey=discovery-service -Dsonar.projectName='discovery-service'"
-                    }
+            }
                     timeout(time:1, unit:'HOURS'){
-                     def qg = waitForQualityGate() // Assuming you have configured a webhook for the Quality Gate
-                                if (qg.status != 'OK') {
-                                    error "Quality Gate did not pass. Check the SonarQube dashboard for details.."
-                                }
-                                 }
-                bat 'mvn clean install'
-
-        }
+                    def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Quality Gate did not pass. Check the SonarQube dashboard for details.."
+                        }
+                    }
+                    bat 'mvn clean install'
+                }
     }
     }
 }
@@ -57,6 +56,17 @@ stage('Build Discovery-Service') {
             steps {
                 dir('weather-app/geocoder-service'){
 
+                withSonarQubeEnv('sonarserver') {
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=geocoder-service -Dsonar.projectName='geocoder-service'"
+                }
+
+                timeout(time:1, unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Quality Gate did not pass. Check the SonarQube dashboard for details.."
+                        }
+                }
+
                 bat 'mvn clean install'
                 }
             }
@@ -65,6 +75,16 @@ stage('Build Discovery-Service') {
             steps {
                 dir('weather-app/weather-service'){
 
+                    withSonarQubeEnv('sonarserver') {
+                        bat "mvn clean verify sonar:sonar -Dsonar.projectKey=weather-service -Dsonar.projectName='weather-service'"
+                    }
+                    timeout(time:1, unit:'HOURS'){
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Quality Gate did not pass. Check the SonarQube dashboard for details.."
+                        }
+                    }
+
                 bat 'mvn clean install'
                 }
             }
@@ -72,6 +92,16 @@ stage('Build Discovery-Service') {
         stage('Build weather-forecast-service') {
             steps {
                 dir('weather-app/weather-forecast'){
+
+                withSonarQubeEnv('sonarserver') {
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=weather-forecast -Dsonar.projectName='weather-forecast'"
+                }
+                timeout(time:1, unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Quality Gate did not pass. Check the SonarQube dashboard for details.."
+                    }
+                }
 
                 bat 'mvn clean install'
                 }
