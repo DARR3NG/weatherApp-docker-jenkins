@@ -54,6 +54,7 @@ stage('Build Discovery-Service') {
 
         stage('Build geocoder-service') {
             steps {
+            script{
                 dir('weather-app/geocoder-service'){
 
                 withSonarQubeEnv('sonarserver') {
@@ -69,10 +70,12 @@ stage('Build Discovery-Service') {
 
                 bat 'mvn clean install'
                 }
+                }
             }
         }
         stage('Build weather-service') {
             steps {
+            script{
                 dir('weather-app/weather-service'){
 
                     withSonarQubeEnv('sonarserver') {
@@ -86,11 +89,12 @@ stage('Build Discovery-Service') {
                     }
 
                 bat 'mvn clean install'
-                }
+                }}
             }
         }
         stage('Build weather-forecast-service') {
             steps {
+            script{
                 dir('weather-app/weather-forecast'){
 
                 withSonarQubeEnv('sonarserver') {
@@ -104,6 +108,7 @@ stage('Build Discovery-Service') {
                 }
 
                 bat 'mvn clean install'
+                }
                 }
             }
         }
