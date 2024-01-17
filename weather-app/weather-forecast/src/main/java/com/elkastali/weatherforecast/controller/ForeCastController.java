@@ -15,8 +15,8 @@ import org.springframework.web.client.RestTemplate;
 @CrossOrigin("*")
 public class ForeCastController {
 
-    @Value("${weather.api.key}")
-    public static  String API_KEY ;
+    //@Value("${weather.api.key}")
+    public static  final String API_KEY ="e8bd6b4890c7fdc00af26251f764a9bf" ;
 
 
 

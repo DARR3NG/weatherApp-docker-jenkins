@@ -12,12 +12,10 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-
-
 public class GeocoderController {
 
-    @Value("${geocoder.key}")
-    public String GEOCODEING_API;
+    //@Value("${geocoder.key}")
+    public static final String GEOCODEING_API="AIzaSyA9l9LOLQEsjKAS2fnMHCZA6bvTZgb3jSI";
 
     @GetMapping("/test")
     public String test() {
