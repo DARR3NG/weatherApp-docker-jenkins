@@ -19,11 +19,11 @@ stage('Build Discovery-Service') {
         dir('weather-app/discovery-service') {
            def mvn = tool 'Default Maven';
                withSonarQubeEnv() {
-                 sh "mvn clean verify sonar:sonar -Dsonar.projectKey=discovery-service -Dsonar.projectName='discovery-service'"
-               }
+                 bat "mvn clean verify sonar:sonar -Dsonar.projectKey=discovery-service -Dsonar.projectName='discovery-service'"
+                    }
                 bat 'mvn clean install'
-            }
-        
+
+        }
     }
 }
 
