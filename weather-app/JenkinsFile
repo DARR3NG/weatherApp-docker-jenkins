@@ -14,14 +14,24 @@ pipeline {
             }
         }
 
-        stage('Build Discovery-Service') {
-            steps {
-                dir('weather-app/discovery-service'){
-                
-                bat 'mvn clean install'
+stage('Build Discovery-Service') {
+    steps {
+        dir('weather-app/discovery-service') {
+            script {
+                withSonarQubeEnv('sonarserver') {
+                    bat 'mvn sonar:sonar'
                 }
+                timeout(time: 1, unit: 'HOURS') {
+                    def pg = waitForQualityGate()
+                    if (pg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${pg.status}"
+                    }
+                }
+                bat 'mvn clean install'
             }
         }
+    }
+}
 
         stage('Build Config-Service') {
             steps {
