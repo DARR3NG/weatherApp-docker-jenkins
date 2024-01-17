@@ -17,9 +17,9 @@ pipeline {
 stage('Build Discovery-Service') {
     steps {
         dir('weather-app/discovery-service') {
-           def mvn = tool 'Default Maven';
-               withSonarQubeEnv() {
-                 bat "mvn clean verify sonar:sonar -Dsonar.projectKey=discovery-service -Dsonar.projectName='discovery-service'"
+
+            withSonarQubeEnv() {
+                bat "mvn clean verify sonar:sonar -Dsonar.projectKey=discovery-service -Dsonar.projectName='discovery-service'"
                     }
                 bat 'mvn clean install'
 
