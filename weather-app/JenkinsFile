@@ -21,6 +21,10 @@ stage('Build Discovery-Service') {
             withSonarQubeEnv('sonarserver') {
                 bat "mvn clean verify sonar:sonar -Dsonar.projectKey=discovery-service -Dsonar.projectName='discovery-service'"
                     }
+                     def qg = waitForQualityGate() // Assuming you have configured a webhook for the Quality Gate
+                                if (qg.status != 'OK') {
+                                    error "Quality Gate did not pass. Check the SonarQube dashboard for details."
+                                }
                 bat 'mvn clean install'
 
         }
