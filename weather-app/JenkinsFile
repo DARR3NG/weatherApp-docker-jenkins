@@ -23,6 +23,14 @@ pipeline {
             }
         }
 
+        stage('Build Config-Service') {
+            steps {
+                dir('weather-app/config-service'){
+
+                bat 'mvn clean install'
+                }
+            }
+        }
         stage('Build gateway-service') {
             steps {
                 dir('weather-app/gateway-service'){

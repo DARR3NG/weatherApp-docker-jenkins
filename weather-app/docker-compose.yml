@@ -1,4 +1,5 @@
 services:
+
   discovery-service:
     container_name: discovery-service
     build: ./discovery-service
@@ -10,6 +11,27 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
       interval: 10s
       retries: 3
+
+
+
+
+  config-service:
+    build: ./config-service
+    container_name: config-service
+    ports:
+      - '9999:9999'
+    expose:
+      - '9999'
+    environment:
+      DISCOVERY_SERVICE_URL: http://discovery-service:8761/eureka/
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9999/actuator/health" ]
+      interval: 10s
+      retries: 4
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+
   geocoder-service:
     container_name: geocoder-service
     build: ./geocoder-service
@@ -20,8 +42,11 @@ services:
     depends_on:
       discovery-service:
             condition: service_healthy
+      config-service:
+        condition: service_healthy
     environment:
       DISCOVERY_SERVICE_URL: http://discovery-service:8761/eureka/
+      CONFIG_SERVICE: http://config-service:9999/
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8082/actuator/health" ]
       interval: 10s
@@ -37,8 +62,11 @@ services:
     depends_on:
       discovery-service:
         condition: service_healthy
+      config-service:
+        condition: service_healthy
     environment:
       DISCOVERY_SERVICE_URL: http://discovery-service:8761/eureka/
+      CONFIG_SERVICE: http://config-service:9999/
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8081/actuator/health" ]
       interval: 10s
@@ -54,8 +82,11 @@ services:
     depends_on:
       discovery-service:
         condition: service_healthy
+      config-service:
+        condition: service_healthy
     environment:
       DISCOVERY_SERVICE_URL: http://discovery-service:8761/eureka/
+      CONFIG_SERVICE: http://config-service:9999/
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8083/actuator/health" ]
       interval: 10s
@@ -71,8 +102,11 @@ services:
     depends_on:
       discovery-service:
         condition: service_healthy
+      config-service:
+        condition: service_healthy
     environment:
         DISCOVERY_SERVICE_URL: http://discovery-service:8761/eureka/
+        CONFIG_SERVICE: http://config-service:9999/
 
   weather-ui:
     container_name: weather-ui

@@ -3,6 +3,7 @@ package com.elkastali.weatherforecast.controller;
 
 import com.elkastali.weatherforecast.model.Location;
 import com.elkastali.weatherforecast.model.WeatherForecast;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,8 @@ import org.springframework.web.client.RestTemplate;
 @CrossOrigin("*")
 public class ForeCastController {
 
-    public static final String API_KEY = "e8bd6b4890c7fdc00af26251f764a9bf";
+    @Value("${weather.api.key}")
+    public static  String API_KEY ;
 
 
 

@@ -4,6 +4,7 @@ package com.elkastali.weatherservice.controller;
 
 import com.elkastali.weatherservice.model.Location;
 import com.elkastali.weatherservice.model.Response;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -12,7 +13,8 @@ import org.springframework.web.client.RestTemplate;
 @CrossOrigin("*")
 public class WeatherController {
 
-    public static final String API_KEY = "e8bd6b4890c7fdc00af26251f764a9bf";
+    @Value("${weather.api.key}")
+    public static  String API_KEY ;
 
     @GetMapping("/test")
     public String test() {
