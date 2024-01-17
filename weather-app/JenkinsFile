@@ -23,7 +23,7 @@ stage('Build Discovery-Service') {
                }
                 bat 'mvn clean install'
             }
-        }
+        
     }
 }
 
