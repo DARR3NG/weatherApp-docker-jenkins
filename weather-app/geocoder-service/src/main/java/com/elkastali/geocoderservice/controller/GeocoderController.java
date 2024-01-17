@@ -4,6 +4,7 @@ package com.elkastali.geocoderservice.controller;
 import com.elkastali.geocoderservice.dto.ResponseDto;
 import com.elkastali.geocoderservice.model.Location;
 import com.elkastali.geocoderservice.model.Response;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 public class GeocoderController {
 
-    //@Value("${geocoder.key}")
-    public static final String GEOCODEING_API="AIzaSyA9l9LOLQEsjKAS2fnMHCZA6bvTZgb3jSI";
+    @Value("${geocoder.key}")
+    public String GEOCODEING_API;//="AIzaSyA9l9LOLQEsjKAS2fnMHCZA6bvTZgb3jSI";
 
     @GetMapping("/test")
     public String test() {
