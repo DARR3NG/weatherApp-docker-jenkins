@@ -16,6 +16,7 @@ pipeline {
 
 stage('Build Discovery-Service') {
     steps {
+    script{
         dir('weather-app/discovery-service') {
 
             withSonarQubeEnv('sonarserver') {
@@ -30,6 +31,7 @@ stage('Build Discovery-Service') {
                 bat 'mvn clean install'
 
         }
+    }
     }
 }
 
