@@ -137,7 +137,7 @@ stage('Build Discovery-Service') {
                     script {
                         // Exécuter Ngrok pour chaque service (ajuster les ports en conséquence)
 
-                        bat 'ngrok http 3000 -subdomain=service2 &'
+                        bat 'ngrok http 3000 '
 
                         // Ajoutez des commandes Ngrok supplémentaires pour chaque microservice que vous souhaitez exposer
                         // ...
